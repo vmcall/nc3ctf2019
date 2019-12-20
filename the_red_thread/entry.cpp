@@ -4,14 +4,25 @@
 
 int main(std::int32_t argc, char** argv)
 {
-	
+	if (argc < 2)
+	{
+		std::printf("Please input a key\n");
+		return 0;
+	}
+
 	auto input_string = std::string(argv[1]);
 	std::printf("Key (%X): %s\n", input_string.size(), input_string.c_str());
 
 	char input[0x1000] = { 0x00 };
 	std::memcpy(input, input_string.c_str(), input_string.size());
 	auto calculated_input_array = red_thread::calculate_input(input);
-	auto output = calculated_input_array; // red_thread::calculate_flag(input, calculated_input_array);
+
+	// auto output = red_thread::calculate_flag(input, calculated_input_array);
+	// A STACK OPERATION USED WHEN THE BELOW ASSEMBLY IS COMPILED AS 
+	// AN INDEPENDENT FUNCTION MESSES UP THE OUTPUT, SO LET'S INLINE
+	// IT FOR NOW :-(
+
+	auto output = calculated_input_array;
 
 	__asm
 	{
@@ -20,6 +31,7 @@ int main(std::int32_t argc, char** argv)
 		vmovdqa xmm4, xmmword ptr xmm4_in // xmm4 = 0x02020202020202020202020202020202
 	}
 
+	// Ik bent je vader, Matti.
 	for (size_t i = 0; i < 0x70; i += 0x10)
 	{
 		__asm
