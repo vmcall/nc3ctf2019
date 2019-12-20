@@ -16,10 +16,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gen_table.hpp">
+    <ClInclude Include="intro.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="red_thread.hpp">
+    <ClInclude Include="ppc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
